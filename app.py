@@ -2,23 +2,43 @@ from flask import Flask, redirect, render_template, url_for
 
 app = Flask(__name__)
 
-# Constants
+ROWS = 3
+COLS = 3
 P1 = "X"
 P2 = "O"
-COLS = 3
-
-# Initialise game board and current player
-board = [" "] * 9
-current_player = P1
 score_x = 0
 score_o = 0
 
+def new_board():
+    """Create a 2D board filled with numbers 1-9.
+    Each number represents an empty, selectable cell.
+    Returns a list of lists where each inner list is a row.
+    """
+    two_dim_list = []
+    num = 1
+
+    for _i in range(ROWS):
+        row = []
+        for _j in range(COLS):
+            row.append(num)
+            num += 1
+        two_dim_list.append(row)
+
+    return two_dim_list
+
 
 def all_same_player(values):
-    """Return the player if all values in the list are the same, otherwise None."""
-    if len(set(values)) == 1 and values[0] != " ":
-        return values[0]
-    return None
+    """Return the winning player if all values belong to the same player, else None."""
+    first = values[0]
+
+    if first not in {P1, P2}:
+        return None
+
+    for v in values:
+        if v != first:
+            return None
+
+    return first
 
 
 def check_winner():
@@ -69,11 +89,6 @@ def check_draw():
                 return False
     # If we never found a number, it is a tie
     return True
-
-
-def new_board():
-    """Initialize a new 3x3 board."""
-    return [[" " for _ in range(COLS)] for _ in range(COLS)]
 
 
 def to_row_col(target):
