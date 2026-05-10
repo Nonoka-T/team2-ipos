@@ -1,5 +1,4 @@
 import unittest
-import flask
 
 import app as game_app
 from app import all_same_player, check_draw, check_winner, new_board, to_row_col
@@ -36,8 +35,12 @@ class TestGame(unittest.TestCase):
     def test_draw_when_board_full(self):
         # Every cell is filled with a player marker and there is no winner.
         # Expected: True
-        game_app.board = [["X", "O", "X"], ["X", "X", "O"], ["O", "X", "O"]]
+        # fmt: off
+        game_app.board = [["X", "O", "X"],
+                          ["X", "X", "O"],
+                          ["O", "X", "O"]]
         self.assertTrue(check_draw())
+        # fmt: on
 
 
 if __name__ == "__main__":
