@@ -31,7 +31,7 @@ extend-exclude = [""]
 [tool.ruff.lint]
 preview = true
 select = ["C90", "E", "F", "W", "B", "I", "N", "TID", "PLR"]
-ignore = ["PLR0912"]
+ignore = ["PLR0912", "PLR6301"]
 
 [tool.ruff.lint.mccabe]
 max-complexity = 10
