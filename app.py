@@ -2,11 +2,24 @@ from flask import Flask, redirect, render_template, url_for
 
 app = Flask(__name__)
 
+# Constants
+P1 = "X"
+P2 = "O"
+COLS = 3
+
 # Initialise game board and current player
-board = [' '] * 9
-current_player = 'X'
+board = [" "] * 9
+current_player = P1
 score_x = 0
 score_o = 0
+
+
+def all_same_player(values):
+    """Return the player if all values in the list are the same, otherwise None."""
+    if len(set(values)) == 1 and values[0] != " ":
+        return values[0]
+    return None
+
 
 def check_winner():
     """Return the winning player (X or O) or None. Logic is dynamic — works for any n×n board."""
@@ -58,6 +71,11 @@ def check_draw():
     return True
 
 
+def new_board():
+    """Initialize a new 3x3 board."""
+    return [[" " for _ in range(COLS)] for _ in range(COLS)]
+
+
 def to_row_col(target):
     """Convert a 1-based flat cell number (1-9) to (row, col) for the 2D board."""
     row = (target - 1) // COLS
@@ -86,16 +104,16 @@ def index():
 @app.route("/play/<int:cell>")
 def play(cell):
     global current_player, score_x, score_o
-    if board[cell] == ' ':
+    if board[cell] == " ":
         board[cell] = current_player
         winner = check_winner()
-        if winner == 'X':
+        if winner == "X":
             score_x += 1
-        elif winner == 'O':
+        elif winner == "O":
             score_o += 1
         if not winner:
-            current_player = 'O' if current_player == 'X' else 'X'
-    return redirect(url_for('index'))
+            current_player = "O" if current_player == "X" else "X"
+    return redirect(url_for("index"))
 
 
 @app.route("/reset")
