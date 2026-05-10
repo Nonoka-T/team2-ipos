@@ -1,4 +1,6 @@
-#### 1. **Enable Debug Mode**
+# Debugging
+
+## 1. **Enable Debug Mode**
 
 **How to Enable Debug Mode:**
 
@@ -48,7 +50,7 @@ There are several ways to enable debug mode in Flask:
   flask run --debug
   ```
 
-#### 2. **Start the Flask Application in Debug Mode**
+## 2. **Start the Flask Application in Debug Mode**
 
 Once you have enabled debug mode, start your Flask application. You will see output indicating that debug mode is active and that the debugger is enabled.
 
@@ -64,7 +66,7 @@ WARNING: This is a development server. Do not use it in a production deployment.
  * Debugger PIN: 123-456-789
 ```
 
-#### 3. **Trigger an Error and Use the Debugger**
+## 3. **Trigger an Error and Use the Debugger**
 
 When an error occurs in your Flask application while in debug mode, Flask will display an error page with a stack trace and an interactive Python shell.
 
@@ -72,7 +74,7 @@ When an error occurs in your Flask application while in debug mode, Flask will d
 
 - **Interactive Debugger**: You can use the interactive debugger to inspect variables, run expressions, and step through your code to diagnose the problem. The debugger is accessible by clicking on the console icon at the bottom right of the error page.
 
-#### 4. **Using the Interactive Debugger**
+## 4. **Using the Interactive Debugger**
 
 When an exception occurs, and the interactive debugger is enabled, follow these steps to use it effectively:
 
@@ -89,7 +91,7 @@ When an exception occurs, and the interactive debugger is enabled, follow these 
   print(current_player)  # Check the current player's symbol
   ```
 
-#### 5. **Using Breakpoints**
+## 5. **Using Breakpoints**
 
 Breakpoints allow you to pause the execution of your Flask application at a specific point, letting you inspect the state of your application.
 
@@ -106,11 +108,11 @@ Breakpoints allow you to pause the execution of your Flask application at a spec
 
 - **Run Your Application**: When the application hits the breakpoint, it will pause, allowing you to interact with the debugger.
 
-#### 6. **Restarting the Server Automatically**
+## 6. **Restarting the Server Automatically**
 
 When Flask is in debug mode, it will automatically restart the server whenever you make changes to your code. This feature allows you to see the effects of your changes without manually restarting the server.
 
-#### 7. **Safety Note: Disable Debug Mode in Production**
+## 7. **Safety Note: Disable Debug Mode in Production**
 
 Debug mode should **never** be enabled in a production environment because it can expose sensitive information and provide potential attackers with a way to run arbitrary code on your server.
 
