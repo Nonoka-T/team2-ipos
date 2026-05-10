@@ -5,6 +5,10 @@ from app import all_same_player, check_draw, check_winner, new_board, to_row_col
 
 
 class TestGame(unittest.TestCase):
+    def setUp(self):
+        """Reset the board before each test to ensure a clean state."""
+        game_app.board = new_board()
+
     def test_board_is_3x3(self):
         """Tests for new_board() — checks the board is created correctly as a 2D list."""
         board = new_board()
