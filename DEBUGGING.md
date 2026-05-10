@@ -9,7 +9,7 @@ There are several ways to enable debug mode in Flask:
   Modify your `app.py` file to enable debug mode:
 
   ```python
-  if __name__ == '__main__':
+  if __name__ == "__main__":
       app.run(debug=True)
   ```
 
@@ -54,7 +54,7 @@ Once you have enabled debug mode, start your Flask application. You will see out
 
 Example output:
 
-```
+```log
  * Serving Flask app 'app.py'
  * Debug mode: on
 WARNING: This is a development server. Do not use it in a production deployment.
@@ -100,7 +100,7 @@ Breakpoints allow you to pause the execution of your Flask application at a spec
   ```python
   def play(cell):
       breakpoint()  # This will pause execution here
-      if game.board[cell] == ' ':
+      if game.board[cell] == " ":
           game.board[cell] = game.current_player
   ```
 
@@ -118,6 +118,7 @@ Debug mode should **never** be enabled in a production environment because it ca
 
 - Remove the `debug=True` setting in your `app.run()` call.
 - Set the `FLASK_ENV` environment variable to `production`:
+
   ```bash
   export FLASK_ENV=production  # On macOS/Linux
   set FLASK_ENV=production     # On Windows Command Prompt

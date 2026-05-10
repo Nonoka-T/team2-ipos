@@ -1,23 +1,24 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, redirect, render_template, url_for
 
 app = Flask(__name__)
 
 ROWS = 3
 COLS = 3
-P1 = 'X'
-P2 = 'O'
+P1 = "X"
+P2 = "O"
 
 
 def new_board():
     """Create a 2D board filled with numbers 1-9.
     Each number represents an empty, selectable cell.
-    Returns a list of lists where each inner list is a row."""
+    Returns a list of lists where each inner list is a row.
+    """
     two_dim_list = []
     num = 1
 
-    for i in range(ROWS):
+    for _i in range(ROWS):
         row = []
-        for j in range(COLS):
+        for _j in range(COLS):
             row.append(num)
             num += 1
         two_dim_list.append(row)
@@ -29,7 +30,7 @@ def all_same_player(values):
     """Return the winning player if all values belong to the same player, else None."""
     first = values[0]
 
-    if first != P1 and first != P2:
+    if first not in {P1, P2}:
         return None
 
     for v in values:
@@ -83,7 +84,7 @@ def check_draw():
     for row in board:
         for cell in row:
             # If we find a number, the game is NOT a tie
-            if cell != P1 and cell != P2:
+            if cell not in {P1, P2}:
                 return False
     # If we never found a number, it is a tie
     return True
@@ -95,17 +96,26 @@ def to_row_col(target):
     col = (target - 1) % COLS
     return row, col
 
+
 # Initialise game board and current player
 board = new_board()
 current_player = P1
-@app.route('/')
+
+
+@app.route("/")
 def index():
     winner = check_winner()
     draw = check_draw()
-    return render_template('index.html', board=board, current_player=current_player, winner=winner, draw=draw)
+    return render_template(
+        "index.html",
+        board=board,
+        current_player=current_player,
+        winner=winner,
+        draw=draw,
+    )
 
 
-@app.route('/play/<int:cell>')
+@app.route("/play/<int:cell>")
 def play(cell):
     # breakpoint()
     global current_player
@@ -113,21 +123,21 @@ def play(cell):
     current_value = board[row][col]
 
     # Only place marker if the cell is not already taken by a player
-    if current_value != P1 and current_value != P2:
+    if current_value not in {P1, P2}:
         board[row][col] = current_player
         if not check_winner():
             current_player = P2 if current_player == P1 else P1
 
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))
 
 
-@app.route('/reset')
+@app.route("/reset")
 def reset():
     global board, current_player
     board = new_board()
     current_player = P1
-    return redirect(url_for('index'))
+    return redirect(url_for("index"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)

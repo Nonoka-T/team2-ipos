@@ -1,6 +1,9 @@
-import app as game_app
 import unittest
-from app import new_board, all_same_player, check_winner, check_draw, to_row_col,P1, P2
+import flask
+
+import app as game_app
+from app import all_same_player, check_draw, check_winner, new_board, to_row_col
+
 
 class TestGame(unittest.TestCase):
     def test_board_is_3x3(self):
@@ -20,26 +23,22 @@ class TestGame(unittest.TestCase):
         """Tests for all_same_player() — checks if all values in a line belong to the same player."""
         # All three values are 'O', so O is the winner of this line.
         # Expected: 'O'
-        self.assertEqual(all_same_player(['O', 'O', 'O']), 'O')
+        self.assertEqual(all_same_player(["O", "O", "O"]), "O")
 
     def test_check_winner(self):
         # O fills the entire left column (vertical) [0][0], [1][0], [2][0].
         # Expected: 'O'
-        game_app.board[0][0] = 'O'
-        game_app.board[1][0] = 'O'
-        game_app.board[2][0] = 'O'
-        self.assertEqual(check_winner(), 'O')
+        game_app.board[0][0] = "O"
+        game_app.board[1][0] = "O"
+        game_app.board[2][0] = "O"
+        self.assertEqual(check_winner(), "O")
 
     def test_draw_when_board_full(self):
         # Every cell is filled with a player marker and there is no winner.
         # Expected: True
-        game_app.board = [
-            ['X', 'O', 'X'],
-            ['X', 'X', 'O'],
-            ['O', 'X', 'O']
-        ]
+        game_app.board = [["X", "O", "X"], ["X", "X", "O"], ["O", "X", "O"]]
         self.assertTrue(check_draw())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
