@@ -113,21 +113,25 @@ def index():
         current_player=current_player,
         winner=winner,
         draw=draw,
+        score_x=score_x,
+        score_o=score_o,
     )
 
 
 @app.route("/play/<int:cell>")
 def play(cell):
     global current_player, score_x, score_o
-    if board[cell] == " ":
-        board[cell] = current_player
+    row, col = to_row_col(cell)
+    current_value = board[row][col]
+    if current_value not in (P1, P2):
+        board[row][col] = current_player
         winner = check_winner()
-        if winner == "X":
+        if winner == P1:
             score_x += 1
-        elif winner == "O":
+        elif winner == P2:
             score_o += 1
         if not winner:
-            current_player = "O" if current_player == "X" else "X"
+            current_player = P2 if current_player == P1 else P1
     return redirect(url_for("index"))
 
 
