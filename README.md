@@ -39,3 +39,23 @@ A simple Tic Tac Toe game built with Python and Flask. This application allows t
 4. **Open your web browser:**
 
    Go to `http://127.0.0.1:5000` to play the game.
+
+### Contributing
+
+1. **You can install the dev dependencies with:**
+
+   ```bash
+   pip install -r requirements-dev.txt
+   ```
+
+2. **You can run formatting and linting with locally:**
+
+   ```bash
+   ruff format && ruff check
+   ```
+
+3. **You can run the tests with:**
+
+   ```bash
+   python3 -m unittest discover -v
+   ```

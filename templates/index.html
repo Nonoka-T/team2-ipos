@@ -18,11 +18,15 @@
       </div>
 
       <div class="board">
-        {% for index in range(9) %}
-        <a href="{{ url_for('play', cell=index) }}" class="cell"
-          >{{ board[index] }}</a
-        >
-        {% endfor %}
+          {% for row in board %}
+              {% for cell in row %}
+                  {% if cell == 'X' or cell == 'O' %}
+                    <span class="cell taken">{{ cell }}</span>
+                  {% else %}
+                    <a href="{{ url_for('play', cell=cell) }}" class="cell">&nbsp;</a>
+                  {% endif %}
+              {% endfor %}
+          {%  endfor %}
       </div>
       {% if winner %}
       <p class="result">Player {{ winner }} wins!</p>

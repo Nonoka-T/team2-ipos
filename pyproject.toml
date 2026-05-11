@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tic_tac_toe"
+version = "1.0"
+dependencies = ["Flask==2.3.3"]
+requires-python = ">=3.10"
+
+[dependency-groups]
+dev = ["ruff>=0.15.12"]
+
+
+[project.scripts]
+tic-tac-toe = "app:app.run"
+
+[tool.setuptools]
+packages = { find = {} }
+include-package-data = true
+
+
+# this adds standard Formatter and Linter rules that are used in the CI pipeline or locally with the `ruff` CLI
+[tool.ruff]
+line-length = 120
+fix = true
+unsafe-fixes = true
+preview = true
+extend-exclude = [""]
+
+[tool.ruff.lint]
+preview = true
+select = ["C90", "E", "F", "W", "B", "I", "N", "TID", "PLR"]
+ignore = ["PLR0912", "PLR6301"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.pylint]
+max-args = 5
+max-branches = 8
+max-statements = 25
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
+indent-style = "space"
