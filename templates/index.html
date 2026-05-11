@@ -12,6 +12,11 @@
   <body>
     <div class="container">
       <h1>Tic Tac Toe</h1>
+      <div class="scoreboard">
+        <p>Player X: {{ score_x }}</p>
+        <p>Player O: {{ score_o }}</p>
+      </div>
+
       <div class="board">
           {% for row in board %}
               {% for cell in row %}

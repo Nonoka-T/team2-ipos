@@ -6,7 +6,8 @@ ROWS = 3
 COLS = 3
 P1 = "X"
 P2 = "O"
-
+score_x = 0
+score_o = 0
 
 def new_board():
     """Create a 2D board filled with numbers 1-9.
@@ -112,22 +113,25 @@ def index():
         current_player=current_player,
         winner=winner,
         draw=draw,
+        score_x=score_x,
+        score_o=score_o,
     )
 
 
 @app.route("/play/<int:cell>")
 def play(cell):
-    # breakpoint()
-    global current_player
+    global current_player, score_x, score_o
     row, col = to_row_col(cell)
     current_value = board[row][col]
-
-    # Only place marker if the cell is not already taken by a player
-    if current_value not in {P1, P2}:
+    if current_value not in (P1, P2):
         board[row][col] = current_player
-        if not check_winner():
+        winner = check_winner()
+        if winner == P1:
+            score_x += 1
+        elif winner == P2:
+            score_o += 1
+        if not winner:
             current_player = P2 if current_player == P1 else P1
-
     return redirect(url_for("index"))
 
 
