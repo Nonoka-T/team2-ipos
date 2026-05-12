@@ -29,6 +29,9 @@ def new_board():
 
 def all_same_player(values):
     """Return the winning player if all values belong to the same player, else None."""
+    if not values:
+        return None
+
     first = values[0]
 
     if first not in {P1, P2}:
