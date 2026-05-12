@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for, request, session
+from flask import Flask, redirect, render_template, request, session, url_for
 
 app = Flask(__name__)
 app.secret_key = "ipos-secret-key"
@@ -9,6 +9,7 @@ P1 = "X"
 P2 = "O"
 score_x = 0
 score_o = 0
+
 
 def new_board():
     """Create a 2D board filled with numbers 1-9.
@@ -103,6 +104,7 @@ def to_row_col(target):
 board = new_board()
 current_player = P1
 
+
 def get_player_name():
     """
     Get p1_name and p2_name from the session variable. If not, return default name.
@@ -126,11 +128,11 @@ def set_name():
     return redirect(url_for("index"))
 
 
-
 @app.route("/")
 def index():
     winner = check_winner()
     draw = check_draw()
+    p1_name, p2_name = get_player_name()
     return render_template(
         "index.html",
         board=board,
@@ -139,6 +141,8 @@ def index():
         draw=draw,
         score_x=score_x,
         score_o=score_o,
+        p1_name=p1_name,
+        p2_name=p2_name,
     )
 
 
@@ -147,7 +151,7 @@ def play(cell):
     global current_player, score_x, score_o
     row, col = to_row_col(cell)
     current_value = board[row][col]
-    if current_value not in (P1, P2):
+    if current_value not in {P1, P2}:
         board[row][col] = current_player
         winner = check_winner()
         if winner == P1:

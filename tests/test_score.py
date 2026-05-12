@@ -1,6 +1,7 @@
 import unittest
+
 import app as game_app
-from app import check_winner, P1
+from app import P1, check_winner
 
 
 class TestScoreCounter(unittest.TestCase):
